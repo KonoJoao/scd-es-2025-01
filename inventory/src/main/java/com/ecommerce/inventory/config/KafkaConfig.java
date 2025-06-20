@@ -1,4 +1,4 @@
-package com.ecommerce.orders;
+package com.ecommerce.inventory.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaProdutorConfig {
+public class KafkaConfig {
 
     @Autowired
     private Environment env;
@@ -33,16 +33,6 @@ public class KafkaProdutorConfig {
         configs.put("value.serializer", env.getProperty("value.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer"));
 
-        System.out.println(configs);
-
-        // Configurações adicionais (opcionais)
-//        if (env.containsProperty("spring.kafka.producer.acks")) {
-//            configs.put("acks", env.getProperty("spring.kafka.producer.acks"));
-//        }
-//        if (env.containsProperty("spring.kafka.producer.retries")) {
-//            configs.put("retries", env.getProperty("spring.kafka.producer.retries"));
-//        }
-
         return new DefaultKafkaProducerFactory<>(configs);
     }
 
@@ -52,7 +42,7 @@ public class KafkaProdutorConfig {
     }
 
     @Bean
-    public NewTopic ordersTopicBuilder() {
+    public NewTopic inventoryTopicBuilder() {
         return TopicBuilder
                 .name(topic)
                 .partitions(env.getProperty("spring.kafka.topic.partitions", Integer.class, 1))
