@@ -26,7 +26,7 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
    - Gera UUID e timestamp para cada pedido.  
    - Publica pedidos no tópico `orders` do Kafka.  
 
-2. **Inventory Service (Porta 8080)**  
+2. **Inventory Service**  
    - Consome mensagens do tópico `orders`.  
    - Valida disponibilidade de estoque (PostgreSQL).  
    - Publica resultado (sucesso/falha) no tópico `inventory-events`.  
@@ -39,6 +39,14 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 4. **Frontend**  
    - Interface para adicionar produtos ao carrinho.  
    - Envia pedidos ao **Orders Service**.  
+
+### Tecnologias aplicadas
+
+- Java 24
+- Maven 3.9.9
+- Spring Boot 3.5.3
+- Kafka 2.13
+- React.js (javascript) 20.3.10
 
 ---
 
@@ -99,3 +107,8 @@ KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 ## Como testar
 - **Front** Adicionar itens ao carrinho e confirmar pedido
 - **Email** Verificar e-mail recebido ou logs no console
+
+## ScreenShots
+![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_5d63460d](https://github.com/user-attachments/assets/433275c8-58aa-443f-940d-8c394aa1fb03)
+![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_313787cd](https://github.com/user-attachments/assets/e118b391-cd40-43b2-bcb4-d1b7ee3e70dd)
+![image](https://github.com/user-attachments/assets/19bbf232-c2b6-4a91-b0aa-d01d954a8ee1)
