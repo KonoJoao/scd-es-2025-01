@@ -86,12 +86,12 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 -  npm i
 -  npm run start
 
-**Rodar o back*
+**Rodar o back**
 - cd ./back (orders, inventory e notification)
 - mvn spring-boot:run
 
 **CRIAR CLUSTER**
-KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+- KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 
 **FORMATAR DIRETORIO DE LOGS**
 - bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c config/kraft/server.properties
