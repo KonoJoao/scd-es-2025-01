@@ -11,7 +11,6 @@ Elias Batista Ferreira
 
 202201706 - MATEUS HENRIQUE GANDI DE OLIVEIRA 
 
----
 
 ## Visão Geral do Projeto  
 Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenciamento assíncrono de pedidos, validação de estoque e notificações.  
@@ -48,7 +47,6 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 - Kafka 2.13
 - React.js (javascript) 20.3.10
 
----
 
 ## Requisitos Funcionais Atendidos  
 
@@ -59,7 +57,6 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 | RF-3   | `Inventory-Service` processa mensagens em ordem e publica resultado. |  
 | RF-4   | `Notification-Service` dispara e-mails e logs no console. |  
 
----
 
 ## Requisitos Não Funcionais Atendidos
 
@@ -80,7 +77,7 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 - O broker ao receber novamente a requisição já processada com sucesso, apenas devolve o ack (confirmação que parte de um mecanismo maior que controla como os produtores recebem confirmações dos brokers sobre o recebimento e persistência das mensagens), sem persistir novamente e assim evitando a duplicação.
 - Sem o produtor idempotente, o broker receberia uma requisição como se fosse uma nova, cadastrando-a novamente no lote de eventos, causando duplicação.
 
----
+
 ## Execução
 
 **CRIAR CLUSTER**
