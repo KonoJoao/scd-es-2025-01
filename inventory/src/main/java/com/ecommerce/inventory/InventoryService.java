@@ -12,9 +12,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class InventoryService {
@@ -37,23 +35,30 @@ public class InventoryService {
             topics = "${kafka.topic.consumer}",
             groupId = "${group.id}")
     public void consumeMessage(String message) throws JsonProcessingException {
-        System.out.println("Mensagem recebida=========\n" + message);
         PedidoRecebido pedido = objectMapper.readValue(message, PedidoRecebido.class);
         Set<String> produtos = pedido.getProdutos().keySet();
         List<String> produtosList = produtos.stream().toList();
         Iterable<Produto> result = produtoRepository.findAllById(produtosList);
 
-        for(Produto produto : result) {
-            PedidoEnviadoNotificacao pedidoNotificao = new PedidoEnviadoNotificacao(pedido.getIdPedido(),
-                    pedido.getProdutos(),pedido.getData(), true, "");
-            if(produto.getQuantidade() == 0) {
-                pedidoNotificao.setValido(false);
-                pedidoNotificao.setObservacao("O produto " + produto.getNome() + " não possui estoque.");
-            }
 
-            produto.setQuantidade(produto.getQuantidade() - 1);
-            produtoRepository.save(produto);
-            kafkaTemplate.send(this.topico, produto.getId().toString(), objectMapper.writeValueAsString(pedidoNotificao));
+
+        PedidoEnviadoNotificacao pedidoNotificao = new PedidoEnviadoNotificacao(pedido.getIdPedido(),
+                    null,pedido.getData(), true, "");
+
+        Map<String, String> produtosLoop = new HashMap<>();
+
+        for(Produto produto : result) {
+            Long quantidadePedido = Long.valueOf(pedido.getProdutos().get(produto.getId()));
+            produtosLoop.put(produto.getNome(), quantidadePedido.toString());
+            if(produto.getQuantidade() < quantidadePedido) {
+                pedidoNotificao.setValido(false);
+                pedidoNotificao.setObservacao("O produto " + produto.getNome() + " não possui estoque suficiente.");
+            } else {
+                produto.setQuantidade((int) (produto.getQuantidade() - quantidadePedido));
+                produtoRepository.save(produto);
+            }
         }
+        pedidoNotificao.setProdutos(produtosLoop);
+            kafkaTemplate.send(this.topico, pedidoNotificao.getIdPedido(), objectMapper.writeValueAsString(pedidoNotificao));
     }
 }

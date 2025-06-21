@@ -1,6 +1,4 @@
-package com.ecommerce.inventory.dto;
-
-import org.antlr.v4.runtime.misc.Interval;
+package com.ecommerce.notification.dto;
 
 import java.util.Map;
 
@@ -17,10 +15,6 @@ public class PedidoRecebido {
 
     public String getIdPedido() {
         return idPedido;
-    }
-
-    public void setProdutos(Map<String, String> produtos) {
-        this.produtos = produtos;
     }
 
     public Map<String, String> getProdutos() {

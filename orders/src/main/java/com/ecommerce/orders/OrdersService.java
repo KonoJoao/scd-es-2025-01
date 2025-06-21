@@ -1,6 +1,7 @@
 package com.ecommerce.orders;
 
 import com.ecommerce.orders.dto.PedidoConfirmadoDTO;
+import com.ecommerce.orders.dto.PedidoRecebidoDTO;
 import com.ecommerce.orders.persistance.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -37,26 +38,21 @@ public class OrdersService {
     @Value("${kafka.topic}")
     private String topico;
 
-    public PedidoConfirmadoDTO addOrder(ArrayList<String> orderedItemIds) throws IOException {
+    public PedidoConfirmadoDTO addOrder(PedidoRecebidoDTO pedido) throws IOException {
         Map<String, String> produtos = new HashMap<>();
 
-        for (String itemId : orderedItemIds) {
-            // Busca cada produto no banco de dados
-            Produto produto = produtoRepository.findById(Long.parseLong(itemId))
-                    .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + itemId));
+        pedido.getProdutos().forEach((idStr, quantidade) -> {
+            Long id = Long.parseLong(idStr);
+            Produto produto = produtoRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + id));
+            produtos.put(produto.getId(), quantidade.toString());
+        });
 
-            produtos.put(produto.getId(), produto.getNome()); // Quantidade fixa para exemplo
-        }
-
-//        Map<String, Object> kafkaMessage = new HashMap<>();
         String orderId = UUID.randomUUID().toString();
-//        kafkaMessage.put("orderId", orderId);
-//        kafkaMessage.put("items", orderedItemIds);
-//        kafkaMessage.put("status", "EM_ANALISE");
 
-        PedidoConfirmadoDTO pedido = new PedidoConfirmadoDTO(orderId, produtos);
-        String messageJson = objectMapper.writeValueAsString(pedido);
+        PedidoConfirmadoDTO pedidoConfirmado = new PedidoConfirmadoDTO(orderId, produtos);
+        String messageJson = objectMapper.writeValueAsString(pedidoConfirmado);
         kafkaTemplate.send(topico, orderId, messageJson);
-        return pedido;
+        return pedidoConfirmado;
     }
 }

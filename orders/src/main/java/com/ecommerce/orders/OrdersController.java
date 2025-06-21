@@ -1,6 +1,7 @@
 package com.ecommerce.orders;
 
 import com.ecommerce.orders.dto.PedidoConfirmadoDTO;
+import com.ecommerce.orders.dto.PedidoRecebidoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class OrdersController {
     private OrdersService ordersService;
 
     @PostMapping
-    public ResponseEntity<PedidoConfirmadoDTO> addOrder(@RequestBody ArrayList<String> orderedItemId) throws IOException {
-        return ResponseEntity.ok(ordersService.addOrder(orderedItemId));
+    public ResponseEntity<PedidoConfirmadoDTO> addOrder(@RequestBody PedidoRecebidoDTO pedido) throws IOException {
+        return ResponseEntity.ok(ordersService.addOrder(pedido));
     }
 }
