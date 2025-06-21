@@ -16,7 +16,7 @@ Elias Batista Ferreira
 Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenciamento assíncrono de pedidos, validação de estoque e notificações.  
 
 ### Fluxo e comunicação
-![fluxo](https://github.com/user-attachments/assets/59ff9019-1fdb-4a16-8cf8-b7c64dceff45)
+![fluxo](https://github.com/user-attachments/assets/a7b1daaf-d777-4def-b075-82ec25ce96e6)
 
 ### Componentes Principais  
 
@@ -106,6 +106,7 @@ KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 - **Email** Verificar e-mail recebido ou logs no console
 
 ## ScreenShots
-![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_5d63460d](https://github.com/user-attachments/assets/433275c8-58aa-443f-940d-8c394aa1fb03)
-![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_313787cd](https://github.com/user-attachments/assets/e118b391-cd40-43b2-bcb4-d1b7ee3e70dd)
-![image](https://github.com/user-attachments/assets/19bbf232-c2b6-4a91-b0aa-d01d954a8ee1)
+![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_9e6726b0](https://github.com/user-attachments/assets/1cec6665-dd9c-49d7-9555-2719313f22d1)
+![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_2bfa4fb9](https://github.com/user-attachments/assets/c2d2a87c-b267-4720-888c-e948c9257822)
+![Captura de tela 2025-06-21 151733](https://github.com/user-attachments/assets/2aac1276-5d24-4772-adc6-b0418aae399d)
+
