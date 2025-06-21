@@ -26,7 +26,7 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
    - Gera UUID e timestamp para cada pedido.  
    - Publica pedidos no tópico `orders` do Kafka.  
 
-2. **Inventory Service**  
+2. **Inventory Service (Porta 8080)**  
    - Consome mensagens do tópico `orders`.  
    - Valida disponibilidade de estoque (PostgreSQL).  
    - Publica resultado (sucesso/falha) no tópico `inventory-events`.  
