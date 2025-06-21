@@ -45,7 +45,8 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 - Maven 3.9.9
 - Spring Boot 3.5.3
 - Kafka 2.13
-- React.js (javascript) 20.3.10
+- Node 23
+- React.js 20.3.10
 
 
 ## Requisitos Funcionais Atendidos  
@@ -80,6 +81,15 @@ Sistema de e-commerce com arquitetura baseada em mensageria (Kafka) para gerenci
 
 ## Execução
 
+**Para rodar o front**
+-  cd ./front
+-  npm i
+-  npm run start
+
+**Rodar o back*
+- cd ./back (orders, inventory e notification)
+- mvn spring-boot:run
+
 **CRIAR CLUSTER**
 KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 
@@ -103,7 +113,7 @@ KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
 
 ## Como testar
 - **Front** Adicionar itens ao carrinho e confirmar pedido
-- **Email** Verificar e-mail recebido ou logs no console
+- **Email** Verificar e-mail recebido ou logs no console (Email de destino mockado)
 
 ## ScreenShots
 ![Imagem do WhatsApp de 2025-06-21 à(s) 15 11 19_9e6726b0](https://github.com/user-attachments/assets/1cec6665-dd9c-49d7-9555-2719313f22d1)
